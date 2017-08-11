@@ -1,0 +1,8 @@
+# Author    : Bhishan Poudel
+# Date      : Jun 17, 2016
+# Ref       : https://stackoverflow.com/questions/2112469/delete-specific-line-numbers-from-a-text-file-using-sed
+
+delete some lines using sed
+============================
+
+sed -e '6,236d;403,$d' a.txt > b.txt

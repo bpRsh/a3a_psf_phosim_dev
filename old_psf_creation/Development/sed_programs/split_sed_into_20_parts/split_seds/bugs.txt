@@ -1,0 +1,27 @@
+# Author    : Bhishan Poudel
+# Date      : Jun 29, 2016
+
+output of split_sed.py for broadband.sed has some errors
+##=============================================================================
+
+
+broadband.sed
+2195.5  2282.9    0.0     line=  18958
+  0.0                     line = 19130
+
+
+
+Note:
+last line should be
+2300.0 47.529687688    line= 20003
+
+
+
+##=============================================================================
+catalog0.sed
+
+2278.8    02282.9    0.0   line=19791
+
+
+SOLUTION:
+with open(outfile, 'w') as f:   change w to a

@@ -1,0 +1,48 @@
+<h3 id="programs-description">Programs Description:</h3>
+<h4 id="create-catalogs">1. Create catalogs</h4>
+<p>Program: create_20_catalogs.py Inputs : none<br />
+Outputs : instance_catalogs/broadband.icat and instance_catalogs/barrowband*.icat</p>
+<p>This program creates 20 narrowband instance catalogs and one broadband catalog inside the folder instance_catalogs. These instance catalogs are required by Phosim software.</p>
+<h4 id="create-seds">2. Create seds</h4>
+<p>Program: create_seds.py<br />
+Inputs : sed_flat.txt<br />
+Outputs : seds/broadband.sed and narrowband*.sed</p>
+<p>This program creates 21 sed_files from the given input_sed_file. It also normalizes the flux at wavelength 500 nm (after rescaling down by the factor of 100). The broadband wavelength range is 531-696 nm, which was chosen from LSST r-band filter such that transmission is NOT &lt;= 5%. For each output sed_file, the non_zero fluxes are in their order and all the other fluxes are zero EXCEPT flux for 500 nm.</p>
+<h4 id="choose-your-background">3. Choose your background</h4>
+<p>The physics_command for the phosim software is chosen with following modifications:<br />
+pixelsize 1.5<br />
+saturation 0<br />
+blooming 0<br />
+chargesharing 0</p>
+<p>The location of this background file is:<br />
+backgrounds/background1.bkg We get the saturation effect and the resulting psf looks like comet shape, if we take saturation to be 1.</p>
+<h4 id="run-the-phosim-software-to-create-psfs">4. Run the phosim software to create psfs</h4>
+<p>Program : <em>run_all_catalogs.py</em><br />
+Inputs : instance_catalogs/*.icat &amp; backgrounds/background1.bkg<br />
+Outputs : outputs/broadband_out/17_zipped_psf_fitsfiles AND narrow bands.</p>
+<p>This script run the phosim software command:<br />
+cd ~/phosim;<br />
+./phosim instance_catalogs/required_instance_catalog.icat<br />
+-c Research/twenty_catalogs/backgrounds/background1.bkg<br />
+-o Research/twenty_catalogs/outputs</p>
+<pre><code>N.B. phosim is installed at ~/phosim
+ icat is instance_catalog file        
+  -c is physics_command file, background added later
+  -o is output_folder
+
+  To run phosim command we need an instance_catalog, background is optional.
+  All the paths are relative to phosim installation directory.
+  
+  For the each input instance catalog, the phosim software gives 
+  16 output amplifier zipped psf file and   
+  ONE zipped electron image (fits file). 
+  We need this electron image and do not need amplifier images. </code></pre>
+<h4 id="check-the-difference-between-sum_of_narrobands_psf-and-broadband_psf">5. Check the difference between sum_of_narrobands_psf and broadband_psf</h4>
+<ul>
+<li>The program <em>sum_narrowbands.py</em> sums up all the psf images and create <em>narrowbands_sum.fits</em> .<br />
+</li>
+<li>The program <em>decompress_broadband.py</em> will extract the broadband psf and put it inside outputs folder.<br />
+</li>
+<li>The program <em>difference.fits</em> will create a fitsfile which is the difference of above two psf images. This difference fitsfile should have small values and should have NO STRUCTURE.</li>
+<li>The program <em>decompress_all_psfs.py</em> will extract all the psf files into the directory output_psfs. This will give 20 narrowband psf and one broadband psf.</li>
+</ul>

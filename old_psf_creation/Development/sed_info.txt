@@ -1,0 +1,45 @@
+# Author    : Bhishan Poudel
+# Date      : Jun 27, 2016
+
+
+
+##=============================================================================
+1. seds were created from:
+~/phosim/data/SEDs/starSED/mlt/burrows+2006c91.21_T1350_g4.7_f100_solar
+
+
+
+
+
+##=============================================================================
+2. some seds are located at:
+~//phosim/data/sky/sed_flat.txt
+
+for example: examples/small_catalog
+object 0.0    -0.0154703   -0.00177431        19.000000 ../sky/sed_flat.txt 0 0 0 0 0 0 star none none
+
+
+default SED DIR = ~/phosim/data/SEDS
+IMAGE DIR       = ~/phosim/data/image	   
+
+
+
+##=============================================================================
+3. running catalog script
+
+cd ~/phosim; ./phosim Research/twenty_catalogs/catalog_20objs.icat -c examples/nobackground -o Research/twenty_catalogs/outputs
+
+
+
+4.
+##=============================================================================
+ref: https://bitbucket.org/phosim/phosim_release/issues/3/regarding-phosim-output-differences-with
+
+
+output file name:
+<Instrument>_<a/e>_<Observation ID>_<Filter ID>_<Sensor ID>_<Channel ID>_<Exposure ID>.fits.gz
+lsst        _e    _9999            _f2         _R22        _S11         _E000.fits.gz
+ 
+
+
+lsst_e_9999_f2_R22_S11_E000.fits.gz

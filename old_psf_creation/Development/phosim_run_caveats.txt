@@ -1,0 +1,29 @@
+# Author    : Bhishan Poudel
+# Date      : Jun 28, 2016
+
+Errors and lessons
+======================
+
+1.
+two electron images
+=====================
+instance catalogs files created by 'create_20_catalogs.py' will have only 3
+lines in the catalog files.
+
+when i run:
+
+cd ~/phosim; ./phosim Research/twenty_catalogs/instance_catalogs/catalog0.icat -c examples/nobackground -o Research/twenty_catalogs/outputs/catalog0_out
+
+
+I got TWO _e_ images
+
+
+solution:
+do not use only three lines as like 'examples/small_catalog' use many lines as from 'examples/star'
+
+
+2.
+round shaped output fitsfiles
+===============================
+
+choose higher magnitude star

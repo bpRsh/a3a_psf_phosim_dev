@@ -1,0 +1,18 @@
+# Author    : Bhishan Poudel
+# Date      : Jun 18, 2016
+
+Adding a line to any line number using sed
+==========================================
+
+
+file = "b.txt"
+sed -i '3d' $file
+sed -i "3i # column 2 is the wavelength (nm)" $file
+sed -i "6i # column 5 is the flux (ergs/cm^s/s/nm)" $file
+sed -i "7i # angle wave    trans   refl    flux" $file
+
+
+# one liner
+
+file = "b.txt";sed -i '3d' $file;sed -i "3i # column 2 is the wavelength (nm)" $file;sed -i "6i # column 5 is the flux (ergs/cm^s/s/nm)" $file;sed -i "7i # angle wave    trans   refl    flux" $file
+
