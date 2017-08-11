@@ -1,0 +1,8 @@
+# Author    : Bhishan Poudel
+# Date      : Sep 02, 2016
+
+
+imcat commands for a4_imcat_e_rh_psf0_20.py
+##==============================================================================
+
+ ic -s 100 '%1 grand .001 * +' extreme_psf/psf20.fits > temp.fits ;hfindpeaks temp.fits -r 5 50 | getsky -Z rg 3 | apphot -z 30 | lc -b -i '%flux 0 >' | cleancat 100000 | getshapes -s 0.15 | lc -b +all 'x = %x %d vadd' | apphot -z 30 | getshapes -s   0.15| lc -b +all 'x = %x %d vadd' | apphot -z 30 | getshapes -s  0.15| lc -b +all 'x = %x %d vadd' | apphot -z 30 | getshapes -s 0.15| lc > temp.cat   ; rm temp.fits
