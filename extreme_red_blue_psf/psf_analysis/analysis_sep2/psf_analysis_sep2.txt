@@ -1,0 +1,115 @@
+# Author    : Bhishan Poudel
+# Date      : Sep 02, 2016
+#
+# Note: lc -u  for manual
+
+
+
+
+
+
+
+* look the output
+more combined_extreme_psf.dat 
+
+
+
+
+
+* plotcat de
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | plotcat de
+
+
+
+
+
+* statistic of de and drh
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc de drh | catstats
+
+
+
+
+
+
+* number of psf with drh < -2  # answer is 50
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -2 <' | lc -c
+
+
+
+
+
+
+* look all psf with drh < -2
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -2 <' | lc
+
+
+
+
+* look index value ( which is same as first column of combined.dat, previously it was not same)
+* there should not be more than 8 digits, i guess!
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc index | more
+
+
+
+* look outliers in drh < -2
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -2 <' | more
+
+
+
+
+* look for drh < -2 or drh > 4.5
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -2 < %drh 4.5 > or' | more
+
+
+
+
+
+
+
+
+* look statistics of de
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc de | catstats
+
+
+
+
+
+
+* magnitude of de > 0.10
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%de %de dot sqrt 0.10 >' | lc index n de | lc -o > deoutliers.dat
+
+
+
+
+* look for outliers drh < -2 or drh > 4.5
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -2 < %drh 4.5 > or' | lc index n drh | lc -o > drhoutliers.dat
+
+
+
+
+
+
+##==============================================================================
+# Task: after above analysis the psf should be recreated for the 
+# following line numbers of combined_extreme_psf.dat
+##==============================================================================
+
+
+
+for drh choose :  31151010 2070530 1101047
+
+for de: 31174523 1004513 1021546
+
+
+all: 31151010, 2070530, 1101047, 31174523, 1004513, 1021546
+create psf for these line numbers getting sim_seed from the combined_extreme_psf.dat
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+# Author    : Bhishan Poudel
+# Date      : Sep 09, 2016
+
+Imcat analysis of outlier psf
+##==============================================================================
+
+
+a)
+
+for ellipticity outliers
+plotcat n 'e = %e[0]' < narrowbands_103105035.cat 
+plotcat n 'e = %e[1]' < narrowbands_103105035.cat
+
+plotcat n 'e = %e[0]' < narrowbands_104141804.cat 
+plotcat n 'e = %e[1]' < narrowbands_104141804.cat
+
+plotcat n 'e = %e[0]' < narrowbands_105111823.cat 
+plotcat n 'e = %e[1]' < narrowbands_105111823.cat
+
+
+b)
+for rh outliers lower end
+plotcat n rh < narrowbands_102221250.cat  
+plotcat n rh < narrowbands_102230033.cat * run jedisim in this my computer
+
+c)
+for rh outliers upper end
+plotcat n rh < narrowbands_104184839.cat
+plotcat n rh < narrowbands_104211258.cat * run jedisims in ugrad computer
+
+
+##==============================================================================
+make also movie for seed 1000 psf used in jedisim simulation.
+
+
+
+Note: to save image file in plotcat:
+plotcat n rh -d '102230033rh.ps/ps' < narrowbands_102230033.cat

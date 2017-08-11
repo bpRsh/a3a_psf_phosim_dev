@@ -1,0 +1,106 @@
+# Author    : Bhishan Poudel
+# Date      : Aug 30, 2016
+
+1. I ran main_extreme_psf.py for loop of 150 and got combined_extreme_psf.dat
+
+
+* look the output
+
+more combined_extreme_psf.dat 
+
+
+* plotcat de
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | plotcat de
+
+
+*
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc de drh | catstats
+
+
+
+*
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -2 <' | lc -c
+
+
+
+*
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -2 <' | lc
+
+
+*
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc index | more
+
+
+
+*
+more combined_extreme_psf.dat   # the index is 0829171715, e.g.
+
+
+* we got different index ,e.g, 
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc index | more
+
+
+* to get index we add one more column
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc | more
+
+
+
+* Add an extra column with line numbers
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc de | catstats
+
+
+* look outliers in drh < -2
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -2 <' | more
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -2 < %drh 4.5 > or' | more
+
+
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -2 < %drh 4.5 > or' > drhoutliers.cat
+
+
+
+
+
+
+
+* look statistics of de
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc de | catstats
+
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%de %de dot sqrt 0.15 >' > deoutliers.cat
+
+
+
+*
+more deoutliers.cat
+
+
+##==============================================================================
+##==============================================================================
+Task: after above analysis the psf should be recreated for the following line numbers of combined_extreme_psf.dat
+
+
+
+for drh:  15 37 42 47 52 55 60 72 74 75 82 86 90 115 135 143 144 146
+select these: 47 72 135 
+
+for de: 7 133 143  145
+
+create psf for these line numbers getting sim_seed from the combined_extreme_psf.dat
+
+
+
+
+
+
+
+
+

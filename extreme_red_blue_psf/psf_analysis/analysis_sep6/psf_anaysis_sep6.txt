@@ -1,0 +1,147 @@
+# Author    : Bhishan Poudel
+# Date      : Sep 06, 2016
+
+
+##==============================================================================
+## 1. creation of main dat file
+##==============================================================================
+ I ran main_extreme_psf.py for many loops and got combined_extreme_psf.dat
+
+
+
+
+
+
+##==============================================================================
+## 2. see the output
+##==============================================================================
+
+less combined_extreme_psf.dat
+
+
+
+
+
+##==============================================================================
+## 3.  plotcat de  ( see the plot)
+##==============================================================================
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | plotcat de
+
+
+
+
+
+##==============================================================================
+## 4. Statistics of de and drh
+##==============================================================================
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc de drh | catstats
+
+
+
+
+
+
+##==============================================================================
+## Look index of lc output, and compare with combined_extreme_psf.dat
+## lc has only 8 digit index, longer digits are rounded off.
+## first index is: 1.02175e+08
+## second index is: 1.0217571e+08
+##==============================================================================
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc index | more
+
+
+
+
+
+
+
+##==============================================================================
+## look index (i.e. sim_seed value from combined_extreme_psf.dat)
+## first index is: 102175000
+## second index is: 102175706
+##==============================================================================
+more combined_extreme_psf.dat   # the index is 10829171715, e.g.
+
+
+
+
+
+
+
+
+##==============================================================================
+## To get sim_seed number add one more column
+##==============================================================================
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc | more
+
+
+
+
+
+
+
+
+##==============================================================================
+## Look the statistics of de
+##==============================================================================
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc de | catstats
+
+
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%de %de dot sqrt 0.1 >' | more
+
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%de %de dot sqrt 0.1 >' | lc n
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%de %de dot sqrt 0.1 >' > deoutliers.cat
+
+
+
+
+
+
+
+
+
+
+
+
+##==============================================================================
+## Look the statistics of drh
+##==============================================================================
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc drh | catstats
+
+
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -0.7 < %drh 0.9 > or' | more
+
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -0.7 < %drh 0.9 > or' | lc n
+
+
+
+lc -C -n index -N '1 2 e0' -n rh0 -N '1 2 e20' -n rh20 < combined_extreme_psf.dat | lc +all +Cn 'de = %e0 %e20 vsub' 'drh = %rh0 %rh20 -' | lc -i '%drh -0.7 < %drh 0.9 > or' > drhoutliers.cat
+
+
+
+
+
+
+
+
+
+
+##==============================================================================
+## To do: Find psf for these seed numbers using PHOSIM
+## sim_seed_lst=[105111823,103015944]  for outliers_psf_phosim.py
+##==============================================================================
+
+for drh:  n = 571 532 450 etc
+select : n= 571 seed = 105111823
+
+
+
+for de:
+select: n = 72 seed = 103015944
+
